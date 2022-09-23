@@ -24,9 +24,8 @@ import java.util.Set;
         @Index(columnList = "createdBy")
 })
 
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article {
+public class Article extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,38 +38,24 @@ public class Article {
     private String content;
 
     @Setter
-    private String hashTag;
+    private String hashtag;
 
+    @ToString.Exclude
     @OrderBy("id")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
-    @ToString.Exclude
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
-
-
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-    @CreatedBy
-    @Column(nullable = false, length = 100)
-    private String createdBy;
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;
-    @LastModifiedBy
-    @Column(nullable = false, length = 100)
-    private String modifiedBy;
 
     protected Article() {
     }
 
-    private Article(String title, String content, String hashTag) {
+    private Article(String title, String content, String hashtag) {
         this.title = title;
         this.content = content;
-        this.hashTag = hashTag;
+        this.hashtag = hashtag;
     }
 
-    public static Article of(String title, String content, String hashTag) {
-        return new Article(title, content, hashTag);
+    public static Article of(String title, String content, String hashtag) {
+        return new Article(title, content, hashtag);
     }
 
     @Override
