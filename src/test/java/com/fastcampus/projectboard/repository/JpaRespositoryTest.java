@@ -40,11 +40,11 @@ class JpaRespositoryTest {
         Article article = articleRespository.save(Article.of("new article", "new content", "#spring"));
 
         String updatedHashtag = "#springboot";
-        article.setHashTag(updatedHashtag);
+        article.setHashtag(updatedHashtag);
 
         Article savedArticle = articleRespository.saveAndFlush(article);
 
-        assertThat(savedArticle).hasFieldOrPropertyWithValue("hashTag", updatedHashtag);
+        assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
     }
 
 
@@ -52,10 +52,10 @@ class JpaRespositoryTest {
     @Test
     void givenTestData_whenDeleting_thenWorksFine() {
         Article article = articleRespository.save(Article.of("new article", "new content", "#spring"));
-        assertThat(articleRespository.count()).isEqualTo(1);
+        assertThat(articleRespository.count()).isEqualTo(124);
 
         articleRespository.delete(article);
-        assertThat(articleRespository.count()).isEqualTo(0);
+        assertThat(articleRespository.count()).isEqualTo(123);
 
 
     }
